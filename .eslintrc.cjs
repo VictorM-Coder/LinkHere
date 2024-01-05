@@ -7,7 +7,8 @@ module.exports = {
     'plugin:vue/vue3-recommended',
     'eslint:recommended',
     '@vue/eslint-config-typescript',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'plugin:tailwindcss/recommended'
   ],
   parserOptions: {
     ecmaVersion: 'latest'

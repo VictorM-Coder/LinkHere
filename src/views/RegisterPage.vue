@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import AuthForm from '@/components/form/AuthForm.vue'
-import DarkMain from '@/components/DarkMain.vue'
+import DarkBackground from '@/components/DarkBackground.vue'
 </script>
 
 <template>
-  <dark-main>
+  <dark-background>
     <auth-form :is-login="false" />
-  </dark-main>
+  </dark-background>
 </template>

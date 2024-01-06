@@ -5,6 +5,6 @@ import DarkMain from '@/components/DarkMain.vue'
 
 <template>
   <dark-main>
-    <auth-form />
+    <auth-form :is-login="false" />
   </dark-main>
 </template>

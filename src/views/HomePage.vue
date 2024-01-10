@@ -5,9 +5,7 @@ import PrimaryButton from '@/components/form/PrimaryButton.vue'
 </script>
 
 <template>
-  <section
-    class="flex h-screen flex-wrap bg-slate-900 px-8 py-6 lg:px-32 lg:py-20"
-  >
+  <section class="flex h-screen flex-wrap px-8 py-6 lg:px-32 lg:py-20">
     <div
       class="fixed -right-56 -top-56 h-64 w-64 rounded-full bg-pink-500 shadow-[0_0px_800px_120px_rgba(236,72,153,1)] brightness-200"
     />

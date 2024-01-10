@@ -4,7 +4,5 @@ import DarkBackground from '@/components/DarkBackground.vue'
 </script>
 
 <template>
-  <dark-background>
-    <auth-form :is-login="false" />
-  </dark-background>
+  <auth-form :is-login="false" />
 </template>

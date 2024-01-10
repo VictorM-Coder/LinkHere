@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DarkBackground from '@/components/DarkBackground.vue'
+</script>
 
 <template>
-  <router-view />
+  <dark-background>
+    <router-view />
+  </dark-background>
 </template>

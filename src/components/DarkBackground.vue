@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="flex h-screen flex-wrap items-center justify-center bg-slate-900">
+  <div class="max-h-full min-h-screen bg-slate-900">
     <slot />
   </div>
 </template>

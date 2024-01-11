@@ -24,7 +24,7 @@ const visible = ref(false)
     </header>
     <main class="mt-12">
       <ul class="flex flex-wrap">
-        <link-item />
+        <link-item :link-item="{ title: 'github', link: 'url' }" />
       </ul>
       <Button
         class="font-text mt-8 flex w-full items-center justify-center rounded-2xl border-2 border-pink-600 bg-pink-600 px-6 py-3 text-xl font-medium text-pink-100 hover:bg-pink-700 hover:text-pink-200 focus:ring-2 focus:ring-pink-300"

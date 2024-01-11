@@ -4,20 +4,9 @@ import LinkItem from '@/components/LinkItem.vue'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import { ref } from 'vue'
-import CloseIcon from '@/components/icons/CloseIcon.vue'
-import IconButton from '@/components/form/IconButton.vue'
-import InputText from 'primevue/inputtext'
-import SecondaryButton from '@/components/form/SecondaryButton.vue'
-import PrimaryButton from '@/components/form/PrimaryButton.vue'
-import InputGroup from 'primevue/inputgroup'
-import InputGroupAddon from 'primevue/inputgroupaddon'
-import PasteIcon from '@/components/icons/PasteIcon.vue'
+import LinkFormDialog from '@/components/form/LinkFormDialog.vue'
 
 const visible = ref(false)
-
-function showText() {
-  navigator.clipboard.readText().then((cliptext) => console.log(cliptext))
-}
 </script>
 
 <template>
@@ -50,47 +39,10 @@ function showText() {
     modal
     header="Header"
     :style="{ width: '32rem' }"
-    :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+    :breakpoints="{ '1199px': '75vw', '575px': '75vw' }"
   >
     <template #container="{ closeCallback }">
-      <div class="rounded-2xl bg-slate-800 p-6">
-        <header class="flex items-center justify-between">
-          <h1 class="font-title text-3xl">Add a new link</h1>
-          <icon-button @click="closeCallback">
-            <close-icon />
-          </icon-button>
-        </header>
-        <form class="mt-8">
-          <label for="input-name">Link name</label>
-          <InputText
-            id="input-name"
-            class="mb-6 mt-2 w-full p-2.5"
-            type="text"
-          />
-
-          <label for="input-link">Link</label>
-          <InputGroup class="mb-6 mt-2">
-            <InputText
-              id="input-link"
-              class="w-full p-2.5"
-              type="text"
-            />
-            <Button class="bg-slate-900 px-4">
-              <paste-icon />
-            </Button>
-          </InputGroup>
-
-          <div class="mt-8 flex justify-end">
-            <secondary-button
-              class="me-10"
-              @click="visible = false"
-            >
-              Cancel
-            </secondary-button>
-            <primary-button @click="showText"> Add </primary-button>
-          </div>
-        </form>
-      </div>
+      <link-form-dialog @close-modal="closeCallback" />
     </template>
   </Dialog>
 </template>

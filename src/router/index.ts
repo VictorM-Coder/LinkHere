@@ -3,6 +3,7 @@ import HomePage from '@/views/HomePage.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
 import LinksPage from '@/views/LinksPage.vue'
+import AdminLinksPage from "@/views/AdminLinksPage.vue"
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/links',
     name: 'Links',
     component: LinksPage,
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: AdminLinksPage,
   },
 ]
 

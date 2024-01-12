@@ -8,10 +8,10 @@ import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import IconButton from '@/components/form/IconButton.vue'
 import { ref } from 'vue'
-import type LinkItem from '@/types/LinkItem'
+import type LinkItemType from '@/types/LinkItemType'
 
 const emit = defineEmits(['closeModal'])
-const linkItem = ref<LinkItem>({} as LinkItem)
+const linkItem = ref<LinkItemType>({} as LinkItemType)
 
 function pasteText() {
   navigator.clipboard

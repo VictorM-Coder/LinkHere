@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CopyContent from '@/components/icons/CopyContent.vue'
 import IconButton from '@/components/form/IconButton.vue'
-import type LinkItem from '@/types/LinkItem'
+import type LinkItemType from '@/types/LinkItemType'
 import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
 
@@ -9,7 +9,7 @@ const toast = useToast();
 
 const props = defineProps({
   linkItem: {
-    type: Object as () => LinkItem,
+    type: Object as () => LinkItemType,
     required: true,
   },
 })
@@ -19,7 +19,6 @@ function copyText() {
 }
 
 const showSuccess = () => {
-  console.log('test')
   toast.add({
     severity: 'success',
     summary: 'Link copied',

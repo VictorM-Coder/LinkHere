@@ -5,8 +5,10 @@ import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import { ref } from 'vue'
 import LinkFormDialog from '@/components/form/LinkFormDialog.vue'
+import type LinkItemType from '@/types/LinkItemType'
 
 const visible = ref(false)
+const linkItems = ref<LinkItemType[]>([{ title: 'github', link: 'url' }])
 </script>
 
 <template>
@@ -24,7 +26,11 @@ const visible = ref(false)
     </header>
     <main class="mt-12">
       <ul class="flex flex-wrap">
-        <link-item :link-item="{ title: 'github', link: 'url' }" />
+        <link-item
+          v-for="(item, index) in linkItems"
+          :key="index"
+          :link-item="item"
+        />
       </ul>
       <Button
         class="font-text mt-8 flex w-full items-center justify-center rounded-2xl border-2 border-pink-600 bg-pink-600 px-6 py-3 text-xl font-medium text-pink-100 hover:bg-pink-700 hover:text-pink-200 focus:ring-2 focus:ring-pink-300"

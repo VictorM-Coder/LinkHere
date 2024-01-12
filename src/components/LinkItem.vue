@@ -3,7 +3,7 @@ import CopyContent from '@/components/icons/CopyContent.vue'
 import IconButton from '@/components/form/IconButton.vue'
 import type LinkItemType from '@/types/LinkItemType'
 import { useToast } from 'primevue/usetoast'
-import Toast from 'primevue/toast'
+import { ref } from "vue"
 
 const toast = useToast();
 
@@ -29,7 +29,6 @@ const showSuccess = () => {
 </script>
 
 <template>
-  <Toast />
   <li
     class="w-full rounded-2xl hover:text-pink-400 hover:ring-2 hover:ring-pink-600"
   >

@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import FileUpload from 'primevue/fileupload'
-import Image from 'primevue/image'
-import Textarea from 'primevue/textarea'
-import InputText from 'primevue/inputtext'
-import PrimaryButton from '@/components/form/PrimaryButton.vue'
-import ProfileForm from "@/components/form/ProfileForm.vue"
+import ProfileForm from '@/components/form/ProfileForm.vue'
 </script>
 
 <template>

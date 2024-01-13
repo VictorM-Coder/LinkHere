@@ -30,7 +30,7 @@ const showSuccess = () => {
 
 <template>
   <li
-    class="w-full rounded-2xl hover:text-pink-400 hover:ring-2 hover:ring-pink-600"
+    class="w-full list-none rounded-2xl hover:text-pink-400 hover:ring-2 hover:ring-pink-600"
   >
     <a
       class="flex w-full items-center justify-between rounded-2xl bg-slate-800 px-6 py-3"

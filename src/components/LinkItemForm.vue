@@ -6,9 +6,9 @@ import PasteIcon from '@/components/icons/PasteIcon.vue'
 import Button from 'primevue/button'
 import EditIcon from '@/components/icons/EditIcon.vue'
 import DragIcon from '@/components/icons/DragIcon.vue'
-import IconButton from "@/components/form/IconButton.vue"
-import DeleteIcon from "@/components/icons/DeleteIcon.vue"
-import CopyContent from "@/components/icons/CopyContent.vue"
+import IconButton from '@/components/form/IconButton.vue'
+import DeleteIcon from '@/components/icons/DeleteIcon.vue'
+import CopyContent from '@/components/icons/CopyContent.vue'
 
 const props = defineProps({
   linkItem: {
@@ -21,7 +21,7 @@ const props = defineProps({
 <template>
   <li class="flex w-full items-center rounded-2xl bg-slate-800 px-6 py-8">
     <div class="me-6 flex">
-      <drag-icon class="text-pink-200 opacity-80" />
+      <drag-icon class="handle text-pink-200 opacity-80 hover:cursor-grab" />
     </div>
     <div class="w-full">
       <InputGroup class="mb-6">
@@ -54,8 +54,11 @@ const props = defineProps({
           <edit-icon />
         </Button>
       </InputGroup>
-      <div class="flex justify-end items-center">
-        <icon-button class="me-2" title="Copy link">
+      <div class="flex items-center justify-end">
+        <icon-button
+          class="me-2"
+          title="Copy link"
+        >
           <copy-content />
         </icon-button>
         <icon-button>

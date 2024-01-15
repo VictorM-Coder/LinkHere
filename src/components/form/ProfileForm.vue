@@ -5,6 +5,24 @@ import PrimaryButton from '@/components/form/PrimaryButton.vue'
 import Image from 'primevue/image'
 import FileUpload from 'primevue/fileupload'
 import SecondaryButton from '@/components/form/SecondaryButton.vue'
+import { onMounted, ref } from 'vue'
+import type ProfileType from '@/types/ProfileType'
+
+const isEditMode = ref<Boolean>(false)
+const profile = ref<ProfileType>({} as ProfileType)
+
+function updateProfile() {
+  console.log(profile.value)
+}
+
+onMounted(() => {
+  profile.value = {
+    name: 'Van Hellsing',
+    bio: 'Caçador de vampiros',
+    urlImage:
+      'https://i.pinimg.com/564x/f4/95/a6/f495a67a4a004a791c61cd3570cbccdd.jpg',
+  }
+})
 </script>
 
 <template>
@@ -13,7 +31,7 @@ import SecondaryButton from '@/components/form/SecondaryButton.vue'
 
     <div class="mb-6 flex">
       <Image
-        src="https://i.pinimg.com/564x/f4/95/a6/f495a67a4a004a791c61cd3570cbccdd.jpg"
+        :src="profile.urlImage"
         alt="Image Profile"
         image-class="rounded-full border-fit h-32 w-32 me-6"
         class="min-w-fit"
@@ -26,27 +44,55 @@ import SecondaryButton from '@/components/form/SecondaryButton.vue'
           url="/api/upload"
           accept="image/*"
           :max-file-size="1000000"
+          :disabled="!isEditMode"
         />
-        <secondary-button class="mt-6 w-full"> Remove </secondary-button>
+        <secondary-button
+          class="mt-6 w-full"
+          :disabled="!isEditMode"
+        >
+          Remove
+        </secondary-button>
       </div>
     </div>
 
     <label for="input-name">Name</label>
     <InputText
       id="input-name"
-      disabled
+      v-model="profile.name"
+      :disabled="!isEditMode"
       class="mb-6 mt-2 w-full p-2.5"
     />
 
     <label for="bio-input">Bio</label>
     <Textarea
       id="bio-input"
+      v-model="profile.bio"
       class="mt-2 w-full p-2.5"
       rows="5"
       cols="30"
-      disabled
+      :disabled="!isEditMode"
     />
 
-    <primary-button class="ms-auto mt-4"> Edit profile </primary-button>
+    <primary-button
+      v-if="!isEditMode"
+      class="ms-auto mt-4"
+      @click="isEditMode = true"
+    >
+      Edit profile
+    </primary-button>
+
+    <div
+      v-if="isEditMode"
+      class="ms-auto mt-4 flex justify-end"
+    >
+      <secondary-button @click="isEditMode = false"> Cancel </secondary-button>
+      <primary-button
+        type="submit"
+        class="ms-6"
+        @click.prevent="updateProfile"
+      >
+        Save
+      </primary-button>
+    </div>
   </form>
 </template>

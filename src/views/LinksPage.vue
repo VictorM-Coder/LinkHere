@@ -3,12 +3,13 @@ import Avatar from 'primevue/avatar'
 import LinkItem from '@/components/LinkItem.vue'
 import { ref } from 'vue'
 import type LinkItemType from '@/types/LinkItemType'
-import draggable from 'vuedraggable'
 import Toast from 'primevue/toast'
 
 const linkItems = ref<LinkItemType[]>([
-  { title: 'github', link: 'url' },
-  { title: 'facebook', link: 'url' },
+  { id: '1', order: 0, title: 'github', link: 'url' },
+  { id: '2', order: 1, title: 'facebook', link: 'url' },
+  { id: '3', order: 2, title: 'whatsapp', link: 'url' },
+  { id: '4', order: 3, title: 'youtube', link: 'url' },
 ])
 </script>
 

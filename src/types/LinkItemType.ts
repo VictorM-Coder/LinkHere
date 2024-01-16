@@ -1,6 +1,6 @@
 export default interface LinkItemType {
-  id: String
+  id: string
   order: number
-  title: String
-  link: String
+  title: string
+  link: string
 }

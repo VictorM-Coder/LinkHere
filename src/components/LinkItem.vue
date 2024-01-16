@@ -3,9 +3,8 @@ import CopyContent from '@/components/icons/CopyContent.vue'
 import IconButton from '@/components/form/IconButton.vue'
 import type LinkItemType from '@/types/LinkItemType'
 import { useToast } from 'primevue/usetoast'
-import { ref } from "vue"
 
-const toast = useToast();
+const toast = useToast()
 
 const props = defineProps({
   linkItem: {
@@ -14,8 +13,8 @@ const props = defineProps({
   },
 })
 
-function copyText() {
-  navigator.clipboard.writeText(<string>props.linkItem?.link)
+function copyLink() {
+  navigator.clipboard.writeText(props.linkItem.link)
 }
 
 const showSuccess = () => {
@@ -39,7 +38,7 @@ const showSuccess = () => {
       <p class="font-text me-4 hyphens-auto break-all text-xl">
         {{ linkItem.title }}
       </p>
-      <icon-button @click.prevent="copyText(); showSuccess()">
+      <icon-button @click.prevent="copyLink(), showSuccess()">
         <copy-content />
       </icon-button>
     </a>

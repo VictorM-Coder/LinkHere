@@ -28,6 +28,10 @@ function updateLink(link: string) {
     link: link,
   })
 }
+
+function copyLink() {
+  navigator.clipboard.writeText(props.linkItem.link)
+}
 </script>
 
 <template>
@@ -48,6 +52,7 @@ function updateLink(link: string) {
         <icon-button
           class="me-2"
           title="Copy link"
+          @click="copyLink"
         >
           <copy-content />
         </icon-button>

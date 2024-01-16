@@ -1,46 +1,83 @@
-# Questz
+# <img width="160" src="https://github.com/VictorM-Coder/LinkHere/blob/master/src/assets/logo-complete.svg">
 
-This template should help get you started developing with Vue 3 in Vite.
+LinkHere é um agredador de links desenvolvido com Vue 3, PrimeVue, Tailwind CSS, ESLint, e Firebase.
 
-## Recommended IDE Setup
+## 🚀 Funcionalidades
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- **Agregação de Links:** Adicione e organize seus links de forma fácil e rápida.
+- **Autenticação Firebase:** Faça login com segurança usando o Firebase Authentication.
+- **Responsivo:** Design responsivo para uma experiência consistente em dispositivos diferentes.
 
-## Type Support for `.vue` Imports in TS
+## 🛠️ Tecnologias Utilizadas
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- Vue 3
+- PrimeVue
+- Tailwind CSS
+- ESLint
+- Firebase
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## ⚙️ Pré-requisitos
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+Antes de começar, certifique-se de ter instalado o Node.js e o Vue CLI em sua máquina.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
+# Instalar dependências
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## 🔧 Configuração do Firebase
 
-```sh
+1. Crie um projeto no [Firebase Console](https://console.firebase.google.com/).
+2. Copie as credenciais do seu projeto Firebase.
+3. Cole as credenciais no arquivo `.env`:
+
+```
+VUE_APP_FIREBASE_API_KEY=your-api-key
+VUE_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+VUE_APP_FIREBASE_PROJECT_ID=your-project-id
+VUE_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+VUE_APP_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+VUE_APP_FIREBASE_APP_ID=your-app-id
+```
+
+## 🔍 Configuração do ESLint
+
+Este projeto utiliza o ESLint para manter um código consistente. Certifique-se de ter o ESLint instalado em sua máquina.
+
+```bash
+# Instalar o ESLint globalmente
+npm install -g eslint
+```
+
+## 🚀 Instalação
+
+```bash
+# Clonar o repositório
+git clone https://github.com/seu-usuario/linkhere.git
+
+# Entrar no diretório
+cd linkhere
+
+# Instalar dependências
+npm install
+```
+
+## ▶️ Execução
+
+```bash
+# Compilar e rodar em modo de desenvolvimento
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+A aplicação estará disponível em `http://localhost:5173`.
 
-```sh
-npm run build
-```
+## 🤝 Contribuição
 
-### Lint with [ESLint](https://eslint.org/)
+Contribuições são bem-vindas! Por favor, abra uma issue para discutir mudanças importantes que você gostaria de fazer.
 
-```sh
-npm run lint
-```
+## 📄 Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
+
+---
+Desenvolvido por [Victor Martins](https://github.com/VictorM-Coder)

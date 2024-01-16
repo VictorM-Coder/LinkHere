@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import type LinkItemType from '@/types/LinkItemType'
-import InputText from 'primevue/inputtext'
-import InputGroup from 'primevue/inputgroup'
-import PasteIcon from '@/components/icons/PasteIcon.vue'
-import Button from 'primevue/button'
-import EditIcon from '@/components/icons/EditIcon.vue'
 import DragIcon from '@/components/icons/DragIcon.vue'
 import IconButton from '@/components/form/IconButton.vue'
 import DeleteIcon from '@/components/icons/DeleteIcon.vue'
 import CopyContent from '@/components/icons/CopyContent.vue'
+import EditInputText from '@/components/form/EditInputText.vue'
 
 const props = defineProps({
   linkItem: {
@@ -16,6 +12,22 @@ const props = defineProps({
     required: true,
   },
 })
+
+const emit = defineEmits(['onUpdate'])
+
+function updateTitle(title: string) {
+  emit('onUpdate', {
+    title: title,
+    link: props.linkItem.link,
+  })
+}
+
+function updateLink(link: string) {
+  emit('onUpdate', {
+    title: props.linkItem.title,
+    link: link,
+  })
+}
 </script>
 
 <template>
@@ -24,36 +36,14 @@ const props = defineProps({
       <drag-icon class="handle text-pink-200 opacity-80 hover:cursor-grab" />
     </div>
     <div class="w-full">
-      <InputGroup class="mb-6">
-        <InputText
-          id="input-title"
-          v-model="linkItem.title"
-          class="w-full p-2.5"
-          type="text"
-          disabled
-        />
-        <Button
-          class="bg-slate-900 px-4"
-          @click="pasteText"
-        >
-          <edit-icon />
-        </Button>
-      </InputGroup>
-      <InputGroup class="mb-6">
-        <InputText
-          id="input-link"
-          v-model="linkItem.link"
-          class="w-full p-2.5"
-          type="text"
-          disabled
-        />
-        <Button
-          class="bg-slate-900 px-4"
-          @click="pasteText"
-        >
-          <edit-icon />
-        </Button>
-      </InputGroup>
+      <edit-input-text
+        :value="linkItem.title"
+        @on-update="updateTitle"
+      />
+      <edit-input-text
+        :value="linkItem.link"
+        @on-update="updateLink"
+      />
       <div class="flex items-center justify-end">
         <icon-button
           class="me-2"

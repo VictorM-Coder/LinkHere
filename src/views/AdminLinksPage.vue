@@ -5,18 +5,32 @@ import draggable from 'vuedraggable'
 import { ref } from 'vue'
 import type LinkItemType from '@/types/LinkItemType'
 import ScrollPanel from 'primevue/scrollpanel'
-import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import LinkFormDialog from '@/components/form/LinkFormDialog.vue'
-import PrimaryButton from "@/components/form/PrimaryButton.vue"
+import PrimaryButton from '@/components/form/PrimaryButton.vue'
+
+interface Moved {
+  newIndex: number
+  oldIndex: number
+}
 
 const visible = ref(false)
 const linkItems = ref<LinkItemType[]>([
-  { title: 'github', link: 'url' },
-  { title: 'facebook', link: 'url' },
-  { title: 'whatsapp', link: 'url' },
-  { title: 'youtube', link: 'url' },
+  { id: '1', order: 0, title: 'github', link: 'url' },
+  { id: '2', order: 1, title: 'facebook', link: 'url' },
+  { id: '3', order: 2, title: 'whatsapp', link: 'url' },
+  { id: '4', order: 3, title: 'youtube', link: 'url' },
 ])
+
+function updateLink(newLink: LinkItemType, linkOrder: number) {
+  linkItems.value[linkOrder].title = newLink.title
+  linkItems.value[linkOrder].link = newLink.link
+}
+
+function changeOrder(moved: Moved) {
+  linkItems.value[moved.newIndex].order = moved.newIndex
+  linkItems.value[moved.oldIndex].order = moved.oldIndex
+}
 </script>
 
 <template>
@@ -36,14 +50,17 @@ const linkItems = ref<LinkItemType[]>([
       <ScrollPanel style="width: 100%; height: 480px">
         <draggable
           v-model="linkItems"
-          item-key=""
+          item-key="id"
           handle=".handle"
           tag="ul"
+          @change="(args: any) => changeOrder(args.moved)"
         >
           <template #item="{ element: linkItem }">
             <link-item-form
+              :key="linkItem.id"
               class="mb-6"
               :link-item="linkItem"
+              @on-update="(newLink) => updateLink(newLink, linkItem.order)"
             />
           </template>
         </draggable>

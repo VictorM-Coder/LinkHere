@@ -5,7 +5,10 @@ import IconButton from '@/components/form/IconButton.vue'
 import DeleteIcon from '@/components/icons/DeleteIcon.vue'
 import CopyContent from '@/components/icons/CopyContent.vue'
 import EditInputText from '@/components/form/EditInputText.vue'
+import ClipboardUtil from '@/utils/ClipboardUtil'
+import { useToast } from "primevue/usetoast"
 
+const toast = useToast()
 const props = defineProps({
   linkItem: {
     type: Object as () => LinkItemType,
@@ -30,7 +33,16 @@ function updateLink(link: string) {
 }
 
 function copyLink() {
-  navigator.clipboard.writeText(props.linkItem.link)
+  ClipboardUtil.copyText(props.linkItem.link)
+}
+
+function showSuccess() {
+  toast.add({
+    severity: 'success',
+    summary: 'Link copied',
+    detail: `${props.linkItem.title} link copied to your clipboard`,
+    life: 3000,
+  })
 }
 </script>
 
@@ -52,7 +64,7 @@ function copyLink() {
         <icon-button
           class="me-2"
           title="Copy link"
-          @click="copyLink"
+          @click="copyLink(), showSuccess()"
         >
           <copy-content />
         </icon-button>

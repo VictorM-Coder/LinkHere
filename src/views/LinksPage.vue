@@ -3,7 +3,6 @@ import Avatar from 'primevue/avatar'
 import LinkItem from '@/components/LinkItem.vue'
 import { ref } from 'vue'
 import type LinkItemType from '@/types/LinkItemType'
-import Toast from 'primevue/toast'
 
 const linkItems = ref<LinkItemType[]>([
   { id: '1', order: 0, title: 'github', link: 'url' },
@@ -14,7 +13,6 @@ const linkItems = ref<LinkItemType[]>([
 </script>
 
 <template>
-  <Toast />
   <div class="mx-auto h-full px-4 pt-16 align-top md:w-96 md:px-0">
     <header class="flex h-fit w-full flex-wrap justify-center">
       <Avatar

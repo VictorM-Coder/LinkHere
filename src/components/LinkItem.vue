@@ -3,9 +3,9 @@ import CopyContent from '@/components/icons/CopyContent.vue'
 import IconButton from '@/components/form/IconButton.vue'
 import type LinkItemType from '@/types/LinkItemType'
 import { useToast } from 'primevue/usetoast'
+import ClipboardUtil from '@/utils/ClipboardUtil'
 
 const toast = useToast()
-
 const props = defineProps({
   linkItem: {
     type: Object as () => LinkItemType,
@@ -14,14 +14,14 @@ const props = defineProps({
 })
 
 function copyLink() {
-  navigator.clipboard.writeText(props.linkItem.link)
+  ClipboardUtil.copyText(props.linkItem.link)
 }
 
-const showSuccess = () => {
+function showSuccess() {
   toast.add({
     severity: 'success',
     summary: 'Link copied',
-    detail: `${props.linkItem?.title} link copied to your clipboard`,
+    detail: `${props.linkItem.title} link copied to your clipboard`,
     life: 3000,
   })
 }

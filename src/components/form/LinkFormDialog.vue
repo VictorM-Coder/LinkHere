@@ -9,14 +9,13 @@ import Button from 'primevue/button'
 import IconButton from '@/components/form/IconButton.vue'
 import { ref } from 'vue'
 import type LinkItemType from '@/types/LinkItemType'
+import ClipboardUtil from '@/utils/ClipboardUtil'
 
 const emit = defineEmits(['closeModal'])
 const linkItem = ref<LinkItemType>({} as LinkItemType)
 
-function pasteText() {
-  navigator.clipboard
-    .readText()
-    .then((clipText) => (linkItem.value.link = clipText))
+async function pasteText() {
+  linkItem.value.link = await ClipboardUtil.pasteText()
 }
 
 function createLink() {

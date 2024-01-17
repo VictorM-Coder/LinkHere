@@ -7,6 +7,9 @@ import SecondaryButton from '@/components/form/SecondaryButton.vue'
 import { ref } from 'vue'
 import AuthService from '@/services/AuthService'
 import { useToast } from 'primevue/usetoast'
+import { useUserStore } from '@/stores/UserStore'
+import ProfileService from '@/services/ProfileService'
+import router from "@/router"
 
 const toast = useToast()
 const props = defineProps({
@@ -42,13 +45,30 @@ async function login() {
 
 async function register() {
   try {
-    await AuthService.registerUser(email.value, password.value)
+    useUserStore().user = await AuthService.registerUser(
+      email.value,
+      password.value,
+    )
+    createProfile()
+    await router.push('/admin')
   } catch (error: any) {
     toast.add({
       severity: 'error',
       summary: 'Register Error',
       detail: error.message,
       life: 3000,
+    })
+  }
+}
+
+function createProfile() {
+  const currentUser = useUserStore().user
+  if (currentUser) {
+    ProfileService.createProfile({
+      name: currentUser.email,
+      bio: '',
+      image: '',
+      owner: currentUser.id,
     })
   }
 }

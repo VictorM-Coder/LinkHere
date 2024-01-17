@@ -19,7 +19,7 @@ onMounted(() => {
   profile.value = {
     name: 'Van Hellsing',
     bio: 'Caçador de vampiros',
-    urlImage:
+    image:
       'https://i.pinimg.com/564x/f4/95/a6/f495a67a4a004a791c61cd3570cbccdd.jpg',
   }
 })

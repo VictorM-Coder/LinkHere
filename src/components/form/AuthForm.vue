@@ -32,7 +32,11 @@ function submitUser() {
 
 async function login() {
   try {
-    await AuthService.loginUser(email.value, password.value)
+    useUserStore().user = await AuthService.loginUser(
+      email.value,
+      password.value,
+    )
+    await router.push('/admin')
   } catch (error: any) {
     toast.add({
       severity: 'error',

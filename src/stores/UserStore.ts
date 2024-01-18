@@ -6,6 +6,9 @@ export const useUserStore = defineStore('user', {
     user: null as UserType | null,
   }),
   getters: {
+    getId: (state) => {
+      return state.user?.id as string
+    },
     isAuthenticated: (state) => state.user != null,
   },
 })

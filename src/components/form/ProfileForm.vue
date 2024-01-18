@@ -5,23 +5,29 @@ import PrimaryButton from '@/components/form/PrimaryButton.vue'
 import Image from 'primevue/image'
 import FileUpload from 'primevue/fileupload'
 import SecondaryButton from '@/components/form/SecondaryButton.vue'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import type ProfileType from '@/types/ProfileType'
+import ProfileService from '@/services/ProfileService'
+import { useUserStore } from '@/stores/UserStore'
 
 const isEditMode = ref<Boolean>(false)
 const profile = ref<ProfileType>({} as ProfileType)
+const imageUrl = computed(() => {
+  if (typeof profile.value.image == 'string') {
+    if (profile.value.image.length == 0) {
+      return 'src/assets/noprofile.jpg'
+    }
+  }
+
+  return profile.value.image
+})
 
 function updateProfile() {
   console.log(profile.value)
 }
 
-onMounted(() => {
-  profile.value = {
-    name: 'Van Hellsing',
-    bio: 'Caçador de vampiros',
-    image:
-      'https://i.pinimg.com/564x/f4/95/a6/f495a67a4a004a791c61cd3570cbccdd.jpg',
-  }
+onMounted(async () => {
+  profile.value = await ProfileService.findProfileByOwner(useUserStore().getId)
 })
 </script>
 
@@ -31,7 +37,7 @@ onMounted(() => {
 
     <div class="mb-6 flex">
       <Image
-        :src="profile.urlImage"
+        :src="imageUrl"
         alt="Image Profile"
         image-class="rounded-full border-fit h-32 w-32 me-6"
         class="min-w-fit"

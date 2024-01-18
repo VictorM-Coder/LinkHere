@@ -9,7 +9,7 @@ import AuthService from '@/services/AuthService'
 import { useToast } from 'primevue/usetoast'
 import { useUserStore } from '@/stores/UserStore'
 import ProfileService from '@/services/ProfileService'
-import router from "@/router"
+import router from '@/router'
 
 const toast = useToast()
 const props = defineProps({
@@ -36,7 +36,7 @@ async function login() {
       email.value,
       password.value,
     )
-    await router.push('/admin')
+    await router.push('/profile')
   } catch (error: any) {
     toast.add({
       severity: 'error',
@@ -54,7 +54,7 @@ async function register() {
       password.value,
     )
     createProfile()
-    await router.push('/admin')
+    await router.push('/profile')
   } catch (error: any) {
     toast.add({
       severity: 'error',

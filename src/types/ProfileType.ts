@@ -1,6 +1,6 @@
 export default interface ProfileType {
   name: string
   bio: string
-  image: string | File
+  imageUrl: string
   owner: string
 }

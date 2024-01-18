@@ -71,7 +71,7 @@ function createProfile() {
     ProfileService.createProfile({
       name: currentUser.email,
       bio: '',
-      image: '',
+      imageUrl: '',
       owner: currentUser.id,
     })
   }

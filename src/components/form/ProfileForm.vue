@@ -12,15 +12,37 @@ import { useUserStore } from '@/stores/UserStore'
 
 const isEditMode = ref<Boolean>(false)
 const profile = ref<ProfileType>({} as ProfileType)
+const imageFile = ref<File | null>()
+let imageUploadUrl = ref<string>()
+
 const imageUrl = computed(() => {
-  if (typeof profile.value.image == 'string') {
-    if (profile.value.image.length == 0) {
-      return 'src/assets/noprofile.jpg'
+  if (imageFile.value) {
+    convertFileToUrl(imageFile.value)
+    return imageUploadUrl.value
+  }
+
+  if (profile.value.imageUrl && profile.value.imageUrl.length > 0) {
+    return profile.value.imageUrl
+  }
+
+  return 'src/assets/noprofile.jpg'
+})
+
+function onUpload(event: any) {
+  imageFile.value = event.files[0]
+}
+
+function convertFileToUrl(file: File) {
+  const reader = new FileReader()
+
+  reader.onload = () => {
+    if (typeof reader.result === 'string') {
+      imageUploadUrl.value = reader.result
     }
   }
 
-  return profile.value.image
-})
+  reader.readAsDataURL(file)
+}
 
 function updateProfile() {
   console.log(profile.value)
@@ -39,18 +61,20 @@ onMounted(async () => {
       <Image
         :src="imageUrl"
         alt="Image Profile"
-        image-class="rounded-full border-fit h-32 w-32 me-6"
+        image-class="rounded-full border-fit h-32 w-32 me-6 object-cover"
         class="min-w-fit"
       />
       <div class="ms-6 w-full">
         <FileUpload
           mode="basic"
+          auto
+          custom-upload
           class="w-full"
           name="demo[]"
-          url="/api/upload"
           accept="image/*"
           :max-file-size="1000000"
           :disabled="!isEditMode"
+          @uploader="onUpload"
         />
         <secondary-button
           class="mt-6 w-full"

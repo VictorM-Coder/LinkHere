@@ -1,16 +1,20 @@
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 const ImageService = {
-  uploadImage(imageToBeUploaded: File) {
+  uploadImage(profileId: string, imageToBeUploaded: File) {
     const storage = getStorage()
-    const imageProfileRef = ref(storage, 'profile.jpg')
+    const imageProfileRef = ref(storage, `/images/${profileId}.jpg`)
 
     uploadBytes(imageProfileRef, imageToBeUploaded).then((snapshot) =>
       console.log(`soltou o ponto ${snapshot}`),
     )
   },
-  getImageProfile() {
+  async getImageProfile(profileId: string) {
     const storage = getStorage()
-    getDownloadURL(ref(storage, 'profile.jpg')).then((url) => console.log(url))
+    return await getDownloadURL(ref(storage, `/images/${profileId}.jpg`)).then(
+      (url) => url,
+    )
   },
 }
+
+export default ImageService

@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore'
 import { firestore } from '@/firebase'
 import type ProfileType from '@/types/ProfileType'
-import ImageService from "@/services/ImageService"
+import ImageService from '@/services/ImageService'
 
 const PATH = 'profiles'
 const ProfileService = {
@@ -25,9 +25,10 @@ const ProfileService = {
     await getDocs(q).then((snapshot) => {
       snapshot.forEach((doc) => {
         profile = {
+          id: doc.id,
           name: doc.data().name,
           bio: doc.data().bio,
-          imageUrl: doc.data().image,
+          imageUrl: doc.data().imageUrl,
           owner: doc.data().owner,
         }
       })
@@ -35,19 +36,20 @@ const ProfileService = {
 
     return profile
   },
-  async updateDataProfile(profileId: string, newProfile: ProfileType) {
-    const profileRef = doc(firestore, PATH, profileId)
-    await updateDoc(profileRef, { ...newProfile })
+  async updateDataProfile(newProfile: ProfileType) {
+    console.log(newProfile)
+    const { id, ...profileRequest } = newProfile
+    const profileRef = doc(firestore, PATH, id as string)
+    await updateDoc(profileRef, profileRequest)
   },
 
   async updateImageProfile(profileId: string, image: File) {
     const profileRef = doc(firestore, PATH, profileId)
 
-    ImageService.uploadImage(profileId, image)
+    await ImageService.uploadImage(profileId, image)
     const imageUrl = await ImageService.getImageProfile(profileId)
-    console.log(imageUrl)
 
-    await updateDoc(profileRef, { image: imageUrl })
+    await updateDoc(profileRef, { imageUrl: imageUrl })
   },
 }
 

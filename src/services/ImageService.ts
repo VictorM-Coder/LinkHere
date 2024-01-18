@@ -1,19 +1,31 @@
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage'
 
 const ImageService = {
-  uploadImage(profileId: string, imageToBeUploaded: File) {
+  async uploadImage(profileId: string, imageToBeUploaded: File) {
     const storage = getStorage()
     const imageProfileRef = ref(storage, `/images/${profileId}.jpg`)
 
-    uploadBytes(imageProfileRef, imageToBeUploaded).then((snapshot) =>
-      console.log(`soltou o ponto ${snapshot}`),
-    )
+    await uploadBytes(imageProfileRef, imageToBeUploaded)
   },
+
   async getImageProfile(profileId: string) {
     const storage = getStorage()
     return await getDownloadURL(ref(storage, `/images/${profileId}.jpg`)).then(
       (url) => url,
     )
+  },
+
+  async deleteImageProfile(profileId: string) {
+    const storage = getStorage()
+    const imageProfileRef = ref(storage, `/images/${profileId}.jpg`)
+
+    await deleteObject(imageProfileRef)
   },
 }
 

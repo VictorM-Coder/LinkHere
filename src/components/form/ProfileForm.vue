@@ -9,22 +9,26 @@ import { computed, onMounted, ref } from 'vue'
 import type ProfileType from '@/types/ProfileType'
 import ProfileService from '@/services/ProfileService'
 import { useUserStore } from '@/stores/UserStore'
+import ImageService from '@/services/ImageService'
 
 const isEditMode = ref<Boolean>(false)
 const profile = ref<ProfileType>({} as ProfileType)
 const imageFile = ref<File | null>()
 let imageUploadUrl = ref<string>()
+let deleteImage = false
+
+onMounted(async () => {
+  profile.value = await ProfileService.findProfileByOwner(useUserStore().getId)
+})
 
 const imageUrl = computed(() => {
   if (imageFile.value) {
     convertFileToUrl(imageFile.value)
     return imageUploadUrl.value
   }
-
   if (profile.value.imageUrl && profile.value.imageUrl.length > 0) {
     return profile.value.imageUrl
   }
-
   return 'src/assets/noprofile.jpg'
 })
 
@@ -44,13 +48,31 @@ function convertFileToUrl(file: File) {
   reader.readAsDataURL(file)
 }
 
-function updateProfile() {
-  console.log(profile.value)
+async function updateProfile() {
+  await ProfileService.updateDataProfile(profile.value)
+  if (imageFile.value) {
+    await ProfileService.updateImageProfile(
+      profile.value.id as string,
+      imageFile.value,
+    )
+  }
+  if (deleteImage) {
+    await ImageService.deleteImageProfile(profile.value.id as string)
+    deleteImage = false
+  }
 }
 
-onMounted(async () => {
-  profile.value = await ProfileService.findProfileByOwner(useUserStore().getId)
-})
+function removeImage() {
+  imageFile.value = null
+  profile.value.imageUrl = ''
+  deleteImage = true
+}
+
+function cancelEditMode() {
+  isEditMode.value = false
+  deleteImage = false
+  imageFile.value = null
+}
 </script>
 
 <template>
@@ -79,6 +101,7 @@ onMounted(async () => {
         <secondary-button
           class="mt-6 w-full"
           :disabled="!isEditMode"
+          @click="removeImage"
         >
           Remove
         </secondary-button>
@@ -115,7 +138,7 @@ onMounted(async () => {
       v-if="isEditMode"
       class="ms-auto mt-4 flex justify-end"
     >
-      <secondary-button @click="isEditMode = false"> Cancel </secondary-button>
+      <secondary-button @click="cancelEditMode"> Cancel </secondary-button>
       <primary-button
         type="submit"
         class="ms-6"

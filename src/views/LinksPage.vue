@@ -4,12 +4,7 @@ import LinkItem from '@/components/LinkItem.vue'
 import { ref } from 'vue'
 import type LinkItemType from '@/types/LinkItemType'
 
-const linkItems = ref<LinkItemType[]>([
-  { id: '1', order: 0, title: 'github', link: 'url' },
-  { id: '2', order: 1, title: 'facebook', link: 'url' },
-  { id: '3', order: 2, title: 'whatsapp', link: 'url' },
-  { id: '4', order: 3, title: 'youtube', link: 'url' },
-])
+const linkItems = ref<LinkItemType[]>([])
 </script>
 
 <template>

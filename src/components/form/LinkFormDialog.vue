@@ -11,7 +11,7 @@ import { ref } from 'vue'
 import type LinkItemType from '@/types/LinkItemType'
 import ClipboardUtil from '@/utils/ClipboardUtil'
 
-const emit = defineEmits(['closeModal'])
+const emit = defineEmits(['closeModal', 'createLink'])
 const linkItem = ref<LinkItemType>({} as LinkItemType)
 
 async function pasteText() {
@@ -19,7 +19,7 @@ async function pasteText() {
 }
 
 function createLink() {
-  window.alert(linkItem.value.title)
+  emit('createLink', linkItem.value)
 }
 </script>
 

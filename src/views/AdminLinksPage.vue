@@ -2,12 +2,14 @@
 import ProfileForm from '@/components/form/ProfileForm.vue'
 import LinkItemForm from '@/components/LinkItemForm.vue'
 import draggable from 'vuedraggable'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type LinkItemType from '@/types/LinkItemType'
 import ScrollPanel from 'primevue/scrollpanel'
 import Dialog from 'primevue/dialog'
 import LinkFormDialog from '@/components/form/LinkFormDialog.vue'
 import PrimaryButton from '@/components/form/PrimaryButton.vue'
+import LinkService from '@/services/LinkService'
+import { useUserStore } from '@/stores/UserStore'
 
 interface Moved {
   newIndex: number
@@ -15,21 +17,36 @@ interface Moved {
 }
 
 const visible = ref(false)
-const linkItems = ref<LinkItemType[]>([
-  { id: '1', order: 0, title: 'github', link: 'url' },
-  { id: '2', order: 1, title: 'facebook', link: 'url' },
-  { id: '3', order: 2, title: 'whatsapp', link: 'url' },
-  { id: '4', order: 3, title: 'youtube', link: 'url' },
-])
+const linkItems = ref<LinkItemType[]>([])
 
-function updateLink(newLink: LinkItemType, linkOrder: number) {
-  linkItems.value[linkOrder].title = newLink.title
-  linkItems.value[linkOrder].link = newLink.link
+onMounted(async () => {
+  linkItems.value = await LinkService.findLinkByOwner(useUserStore().getId)
+})
+
+async function createLink(link: LinkItemType) {
+  link.order = linkItems.value.length
+  link.owner = useUserStore().getId
+  console.log(link)
+  const value = await LinkService.createLink(link)
+  console.log(value.id)
 }
 
-function changeOrder(moved: Moved) {
+async function updateLink(newLink: LinkItemType, linkOrder: number) {
+  const linkToBeUpdated = linkItems.value[linkOrder - 1]
+
+  linkToBeUpdated.title = newLink.title
+  linkToBeUpdated.link = newLink.link
+  await LinkService.update(linkToBeUpdated)
+}
+
+async function changeOrder(moved: Moved) {
   linkItems.value[moved.newIndex].order = moved.newIndex
   linkItems.value[moved.oldIndex].order = moved.oldIndex
+
+  await LinkService.updateOrder(
+    linkItems.value[moved.newIndex],
+    linkItems.value[moved.oldIndex],
+  )
 }
 </script>
 
@@ -75,7 +92,10 @@ function changeOrder(moved: Moved) {
     :breakpoints="{ '1199px': '75vw', '575px': '75vw' }"
   >
     <template #container="{ closeCallback }">
-      <link-form-dialog @close-modal="closeCallback" />
+      <link-form-dialog
+        @close-modal="closeCallback"
+        @create-link="createLink"
+      />
     </template>
   </Dialog>
 </template>

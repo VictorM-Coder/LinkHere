@@ -37,7 +37,6 @@ const ProfileService = {
     return profile
   },
   async updateDataProfile(newProfile: ProfileType) {
-    console.log(newProfile)
     const { id, ...profileRequest } = newProfile
     const profileRef = doc(firestore, PATH, id as string)
     await updateDoc(profileRef, profileRequest)

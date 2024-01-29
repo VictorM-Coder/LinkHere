@@ -17,6 +17,15 @@ const ProfileService = {
     await addDoc(collection(firestore, PATH), profile)
   },
 
+  async checkIfUsernameExists(username: string) {
+    const profilesRef = collection(firestore, PATH)
+    const q = query(profilesRef, where('username', '==', username))
+
+    return await getDocs(q).then((snapshot) => {
+      return !snapshot.empty
+    })
+  },
+
   async findProfileByOwner(owner: string) {
     const profilesRef = collection(firestore, PATH)
     const q = query(profilesRef, where('owner', '==', owner))
@@ -30,6 +39,7 @@ const ProfileService = {
           bio: doc.data().bio,
           imageUrl: doc.data().imageUrl,
           owner: doc.data().owner,
+          username: doc.data().username,
         }
       })
     })

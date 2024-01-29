@@ -32,7 +32,7 @@ const routes = [
     },
   },
   {
-    path: '/links',
+    path: '/links/:userId',
     name: 'Links',
     component: LinksPage,
     meta: {

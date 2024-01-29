@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import Avatar from 'primevue/avatar'
 import LinkItem from '@/components/LinkItem.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type LinkItemType from '@/types/LinkItemType'
+import router from '@/router'
+import { useRoute } from 'vue-router'
+import type ProfileType from '@/types/ProfileType'
+import ProfileService from '@/services/ProfileService'
 
 const linkItems = ref<LinkItemType[]>([])
+const userProfile = ref<ProfileType>()
+onMounted(() => {
+  const userId = useRoute().params.userId
+  // userProfile.value = ProfileService.findProfileByOwner()
+})
 </script>
 
 <template>

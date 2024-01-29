@@ -4,4 +4,5 @@ export default interface ProfileType {
   bio: string
   imageUrl: string
   owner: string
+  username: string
 }

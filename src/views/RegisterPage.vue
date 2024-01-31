@@ -88,7 +88,7 @@ function createProfile() {
           id="input-username"
           v-model="username"
           class="mt-2 w-full p-2.5"
-          aria-describedby="fullName-help"
+          aria-describedby="username-help"
           :class="{ 'p-invalid': errors.username }"
         />
         <small
@@ -123,6 +123,7 @@ function createProfile() {
           input-id="input-password"
           class="mt-2 w-full"
           toggle-mask
+          :feedback="false"
           aria-describedby="password-help"
           :class="{ 'p-invalid': errors.password }"
         />

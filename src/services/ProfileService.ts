@@ -46,10 +46,13 @@ const ProfileService = {
 
     return profile
   },
-  async updateDataProfile(newProfile: ProfileType) {
-    const { id, ...profileRequest } = newProfile
+
+  async updateDataProfile(id: string, name: string, bio: string) {
     const profileRef = doc(firestore, PATH, id as string)
-    await updateDoc(profileRef, profileRequest)
+    await updateDoc(profileRef, {
+      name: name,
+      bio: bio,
+    })
   },
 
   async updateImageProfile(profileId: string, image: File) {

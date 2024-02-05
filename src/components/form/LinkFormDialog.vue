@@ -7,19 +7,43 @@ import PasteIcon from '@/components/icons/PasteIcon.vue'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import IconButton from '@/components/form/IconButton.vue'
-import { ref } from 'vue'
-import type LinkItemType from '@/types/LinkItemType'
 import ClipboardUtil from '@/utils/ClipboardUtil'
+import * as yup from 'yup'
+import { useForm } from 'vee-validate'
+
+const schema = yup.object({
+  title: yup.string().required().label('Link title'),
+  link: yup
+    .string()
+    .matches(
+      /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+      'Enter a correct url!',
+    )
+    .required('Please enter a link'),
+})
+
+const { defineField, handleSubmit, errors } = useForm({
+  validationSchema: schema,
+})
+
+const [title] = defineField('title')
+const [link] = defineField('link')
 
 const emit = defineEmits(['closeModal', 'createLink'])
-const linkItem = ref<LinkItemType>({} as LinkItemType)
+
+const onSubmit = handleSubmit(() => {
+  createLink()
+})
 
 async function pasteText() {
-  linkItem.value.link = await ClipboardUtil.pasteText()
+  link.value = await ClipboardUtil.pasteText()
 }
 
 function createLink() {
-  emit('createLink', linkItem.value)
+  emit('createLink', {
+    title: title.value,
+    link: link.value,
+  })
 }
 </script>
 
@@ -31,30 +55,51 @@ function createLink() {
         <close-icon />
       </icon-button>
     </header>
-    <form class="mt-8">
-      <label for="input-name">Link name</label>
-      <InputText
-        id="input-name"
-        v-model="linkItem.title"
-        class="mb-6 mt-2 w-full p-2.5"
-        type="text"
-      />
-
-      <label for="input-link">Link</label>
-      <InputGroup class="mb-6 mt-2">
+    <form
+      class="mt-8"
+      @submit.prevent="onSubmit"
+    >
+      <div class="field mb-6">
+        <label for="input-name">Link name</label>
         <InputText
-          id="input-link"
-          v-model="linkItem.link"
-          class="w-full p-2.5"
+          id="input-name"
+          v-model="title"
+          class="mt-2 w-full p-2.5"
           type="text"
+          aria-describedby="title-help"
+          :class="{ 'p-invalid': errors.title }"
         />
-        <Button
-          class="bg-slate-900 px-4"
-          @click="pasteText"
+        <small
+          id="title-help"
+          class="p-error"
+          >{{ errors.title }}</small
         >
-          <paste-icon />
-        </Button>
-      </InputGroup>
+      </div>
+
+      <div class="field mb-6">
+        <label for="input-link">Link</label>
+        <InputGroup class="mt-2">
+          <InputText
+            id="input-link"
+            v-model="link"
+            class="w-full p-2.5"
+            type="text"
+            aria-describedby="link-help"
+            :class="{ 'p-invalid': errors.link }"
+          />
+          <Button
+            class="bg-slate-900 px-4"
+            @click="pasteText"
+          >
+            <paste-icon />
+          </Button>
+        </InputGroup>
+        <small
+          id="link-help"
+          class="p-error"
+          >{{ errors.link }}</small
+        >
+      </div>
 
       <div class="mt-8 flex justify-end">
         <secondary-button

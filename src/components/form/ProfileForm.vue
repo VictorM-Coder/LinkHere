@@ -14,7 +14,6 @@ import * as yup from 'yup'
 import { useForm } from 'vee-validate'
 import { useToast } from 'primevue/usetoast'
 
-//TODO ADICIONAR A VALIDAÇÃO COM VEE-VALIDATE NO CAMPO DE NOME E TESTAR AS ATUALIZAÇÕES
 const isEditMode = ref<Boolean>(false)
 const profile = ref<ProfileType>({} as ProfileType)
 const imageFile = ref<File | null>()

@@ -26,9 +26,7 @@ onMounted(async () => {
 async function createLink(link: LinkItemType) {
   link.order = linkItems.value.length
   link.owner = useUserStore().getId
-  console.log(link)
-  const value = await LinkService.createLink(link)
-  console.log(value.id)
+  await LinkService.createLink(link)
 }
 
 async function updateLink(newLink: LinkItemType, linkOrder: number) {
